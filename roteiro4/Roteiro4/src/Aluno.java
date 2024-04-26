@@ -19,7 +19,7 @@ public class Aluno {
     curso = pCurso;
     anoIngresso = pAnoIngresso;
 
-    if (qtdeDisciplinas <= 0) {
+    if (pQtdeDisciplinas <= 0) {
       qtdeDisciplinas = 0;
       situacao = "Não Matriculado";
     } else {
