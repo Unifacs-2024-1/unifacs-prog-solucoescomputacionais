@@ -45,16 +45,16 @@ public class Ligacao {
 		this.localDestino = localDestino;
 	}
 
-	public Tempo getHoraInicio() {
-		return this.horaInicio;
+	public String getHoraInicio() {
+		return this.horaInicio.toString();
 	}
 
 	public void setHoraInicio(int hora, int minuto, int segundo) {
 		this.horaInicio = new Tempo(hora, minuto, segundo);
 	}
 
-	public Tempo getHoraFim() {
-		return this.horaFim;
+	public String getHoraFim() {
+		return this.horaFim.toString();
 	}
 
 	public void setHoraFim(int hora, int minuto, int segundo) {
