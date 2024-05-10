@@ -1,3 +1,5 @@
+import Ligacao.Ligacao;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Ligacao ligacao = new Ligacao("123456789", "987654321", "Lisboa", "Porto", "10:00");

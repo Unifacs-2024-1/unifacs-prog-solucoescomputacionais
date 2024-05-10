@@ -3,8 +3,8 @@ public class Ligacao {
   private String numDestino;
   private String localOrigem;
   private String localDestino;
-  private String horaInicio;
-  private String horaFim;
+  private Tempo horaInicio;
+  private Tempo horaFim;
 
   public Ligacao(String numOrigem, String numDestino, String localOrigem, String localDestino, String horaInicio) {
     this.numOrigem = numOrigem;
@@ -47,20 +47,20 @@ public class Ligacao {
 		this.localDestino = localDestino;
 	}
 
-	public String getHoraInicio() {
+	public Tempo getHoraInicio() {
 		return this.horaInicio;
 	}
 
-	public void setHoraInicio(String horaInicio) {
-		this.horaInicio = horaInicio;
+	public void setHoraInicio(String hora, String minuto, String segundo) {
+		this.horaInicio = new Tempo(hora, minuto, segundo);
 	}
 
-	public String getHoraFim() {
+	public Tempo getHoraFim() {
 		return this.horaFim;
 	}
 
-	public void setHoraFim(String horaFim) {
-		this.horaFim = horaFim;
+	public void setHoraFim(String hora, String minuto, String segundo) {
+		this.horaFim = new Tempo(hora, minuto, segundo);
 	}
 
 
