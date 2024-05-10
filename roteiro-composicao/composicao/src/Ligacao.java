@@ -6,13 +6,11 @@ public class Ligacao {
   private Tempo horaInicio;
   private Tempo horaFim;
 
-  public Ligacao(String numOrigem, String numDestino, String localOrigem, String localDestino, String horaInicio) {
+  public Ligacao(String numOrigem, String numDestino, String localOrigem, String localDestino) {
     this.numOrigem = numOrigem;
     this.numDestino = numDestino;
     this.localOrigem = localOrigem;
     this.localDestino = localDestino;
-    this.horaInicio = horaInicio;
-    this.horaFim = "";
   }
 
 	public String getNumOrigem() {
