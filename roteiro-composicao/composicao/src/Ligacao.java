@@ -49,7 +49,7 @@ public class Ligacao {
 		return this.horaInicio;
 	}
 
-	public void setHoraInicio(String hora, String minuto, String segundo) {
+	public void setHoraInicio(int hora, int minuto, int segundo) {
 		this.horaInicio = new Tempo(hora, minuto, segundo);
 	}
 
@@ -57,7 +57,7 @@ public class Ligacao {
 		return this.horaFim;
 	}
 
-	public void setHoraFim(String hora, String minuto, String segundo) {
+	public void setHoraFim(int hora, int minuto, int segundo) {
 		this.horaFim = new Tempo(hora, minuto, segundo);
 	}
 
