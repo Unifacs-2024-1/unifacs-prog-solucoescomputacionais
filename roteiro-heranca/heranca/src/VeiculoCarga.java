@@ -14,4 +14,10 @@ public class VeiculoCarga extends Veiculo {
   public void setPesoMax(int pesoMax) {
     this.pesoMax = pesoMax;
   }
+
+  @Override
+  public double calcPedagio() {
+    super.taxaPedagio = 2.0;
+    return super.taxaPedagio * this.pesoMax;
+  }
 }

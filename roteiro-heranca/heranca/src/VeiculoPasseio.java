@@ -14,4 +14,10 @@ public class VeiculoPasseio extends Veiculo {
     this.qtdMaxPassageiros = qtdMaxPassageiros;
   }
 
+  @Override
+  public double calcPedagio() {
+    super.taxaPedagio = 5.0;
+    return super.taxaPedagio * this.qtdMaxPassageiros;
+  }
+
 }

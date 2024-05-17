@@ -1,6 +1,7 @@
-public class Veiculo {
+public abstract class Veiculo {
   private String placa;
   private int anoFabricacao;
+  protected double taxaPedagio = 6.0;
 
   public Veiculo(String placa, int anoFabricacao) {
     this.placa = placa;
@@ -21,6 +22,10 @@ public class Veiculo {
 
   public void setAnoFabricacao(int anoFabricacao) {
     this.anoFabricacao = anoFabricacao;
+  }
+
+  public double calcPedagio() {
+    return this.taxaPedagio;
   }
   
 }
