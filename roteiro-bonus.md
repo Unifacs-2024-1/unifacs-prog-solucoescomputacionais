@@ -1,12 +1,43 @@
 ### Integração com banco de dados
 
+## Passo 1
+- Cadastro no [Tembo.io](https://tembo.io/)
+- Crie a instancia : Hobby
+- Baixe o PGAdmim para visualização dos dados: [https://www.pgadmin.org/download/pgadmin-4-windows/](https://www.pgadmin.org/download/pgadmin-4-windows/)
+
+## Passo 2
+- Crie um novo projeto no java
+
+##  Instalação das Dependências
+Se estiver usando Maven, adicione a dependência do driver JDBC do PostgreSQL no seu arquivo pom.xml:
+
+```
+<dependencies>
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.2.19</version>
+    </dependency>
+</dependencies>
+```
+
+- OU -> Instalar driver [JDBC](https://jdbc.postgresql.org/download/)
+
+## Passo 3 -Configuração do Banco de Dados
+Se você estiver usando um banco de dados online, como o Amazon RDS ou Heroku Postgres, você precisará das credenciais de conexão que geralmente incluem:
+- URL de Conexão
+- Nome do Usuário
+- Senha
+- Nome do Banco de Dados
+
 
 ## Conexão com o Banco de Dados
 
 Crie uma classe para gerenciar a conexão com o banco de dados. Por exemplo:
 
 
-```import java.sql.Connection;
+```
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -18,28 +49,99 @@ public class DatabaseConnection {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+
+    public static void closeConnection(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+
 ```
 ## Criação de método para Criar Tabelas
 Vamos criar uma classe Java que executa o comando SQL para criar a tabela.
 
 ```
-public static void createTable(String args) {
-      String createTableSQL = "CREATE TABLE IF NOT EXISTS employees ("
-              + "id SERIAL PRIMARY KEY, "
-              + "name VARCHAR(100) NOT NULL, "
-              + "position VARCHAR(100) NOT NULL, "
-              + "salary NUMERIC(10, 2) NOT NULL, "
-              + "hire_date DATE NOT NULL"
-              + ");";
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-      Connection conn = this.getConnection();
-      Statement stmt = conn.createStatement()) {
+public class DatabaseOperations {
 
-      // Execute the SQL statement
-      stmt.execute(createTableSQL);
-      System.out.println("Table created successfully");
-  }
+    public void createTable() {
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS employees ("
+                + "id SERIAL PRIMARY KEY, "
+                + "name VARCHAR(100) NOT NULL, "
+                + "position VARCHAR(100) NOT NULL, "
+                + "salary NUMERIC(10, 2) NOT NULL, "
+                + "hire_date DATE NOT NULL"
+                + ");";
+
+        Connection conn = null;
+        Statement stmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.createStatement();
+            stmt.execute(createTableSQL);
+            System.out.println("Tabela criada com sucesso");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Fechar o Statement e a Connection
+            closeResources(stmt, conn);
+        }
+    }
+
+    public void insertEmployee(Employee employee) {
+        String insertSQL = "INSERT INTO employees (name, position, salary, hire_date) VALUES (?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            pstmt = conn.prepareStatement(insertSQL);
+            pstmt.setString(1, employee.getName());
+            pstmt.setString(2, employee.getPosition());
+            pstmt.setDouble(3, employee.getSalary());
+            pstmt.setDate(4, employee.getHireDate());
+            pstmt.executeUpdate();
+            System.out.println("Empregado inserido com sucesso");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Fechar o PreparedStatement e a Connection
+            closeResources(pstmt, conn);
+        }
+    }
+
+    private void closeResources(AutoCloseable resource1, AutoCloseable resource2) {
+        try {
+            if (resource1 != null) {
+                resource1.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (resource2 != null) {
+                resource2.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
 ```
 
 
@@ -54,7 +156,7 @@ import java.sql.Statement;
 
 public class DatabaseOperations {
     public void fetchData() {
-        String query = "SELECT * FROM your_table";
+        String query = "SELECT * FROM employees";
         
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
