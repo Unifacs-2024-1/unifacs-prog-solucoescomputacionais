@@ -23,7 +23,7 @@ Se estiver usando Maven, adicione a dependência do driver JDBC do PostgreSQL no
 
 - OU -> Instalar driver [JDBC](https://jdbc.postgresql.org/download/)
 
-## Passo 3 -Configuração do Banco de Dados
+## Passo 3 - Configuração do Banco de Dados
 Se você estiver usando um banco de dados online, como o Amazon RDS ou Heroku Postgres, você precisará das credenciais de conexão que geralmente incluem:
 - URL de Conexão
 - Nome do Usuário
@@ -31,7 +31,7 @@ Se você estiver usando um banco de dados online, como o Amazon RDS ou Heroku Po
 - Nome do Banco de Dados
 
 
-## Conexão com o Banco de Dados
+## Passo 4 - Conexão com o Banco de Dados
 
 Crie uma classe para gerenciar a conexão com o banco de dados. Por exemplo:
 
@@ -62,7 +62,50 @@ public class DatabaseConnection {
 }
 
 ```
-## Criação de método para Criar Tabelas
+
+## Passo 5 - Criar a classe Employee
+```
+public class Employee {
+    private Long id;
+    private String name;
+    private String position;
+    private double salary;
+    // Getters and setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+}
+```
+## Passo 6 - Criação de método para Criar Tabelas
 Vamos criar uma classe Java que executa o comando SQL para criar a tabela.
 
 ```
@@ -145,7 +188,7 @@ public class DatabaseOperations {
 ```
 
 
-## Execução de Consultas SQL
+## Passo 7 - Execução de Consultas SQL
 
 Crie uma classe para executar consultas SQL. Por exemplo:
 
