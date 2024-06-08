@@ -122,7 +122,6 @@ public class DatabaseOperations {
                 + "name VARCHAR(100) NOT NULL, "
                 + "position VARCHAR(100) NOT NULL, "
                 + "salary NUMERIC(10, 2) NOT NULL, "
-                + "hire_date DATE NOT NULL"
                 + ");";
 
         Connection conn = null;
@@ -143,7 +142,7 @@ public class DatabaseOperations {
     }
 
     public void insertEmployee(Employee employee) {
-        String insertSQL = "INSERT INTO employees (name, position, salary, hire_date) VALUES (?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO employees (name, position, salary) VALUES (?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -154,7 +153,6 @@ public class DatabaseOperations {
             pstmt.setString(1, employee.getName());
             pstmt.setString(2, employee.getPosition());
             pstmt.setDouble(3, employee.getSalary());
-            pstmt.setDate(4, employee.getHireDate());
             pstmt.executeUpdate();
             System.out.println("Empregado inserido com sucesso");
 
